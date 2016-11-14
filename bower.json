@@ -1,0 +1,24 @@
+{
+  "name": "ajax-manager",
+  "homepage": "https://github.com/acordeonl/ajax-manager",
+  "authors": [
+    "acordeonl <acordeonlwebmaster@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "keywords": [
+      "web-components"
+   ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
+    "iron-localstorage": "PolymerElements/iron-localstorage#^1.0.6"
+  }
+}
