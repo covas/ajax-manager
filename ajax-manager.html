@@ -1,0 +1,54 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/iron-localstorage/iron-localstorage.html">
+<script src="./vars.js"></script>
+<dom-module id="ajax-manager">
+    <template>
+        <style></style>
+        <iron-ajax id="ajax" url="http://localhost:3000/data/{{request}}.json" handle-as="json" last-response="{{response}}" loading="{{loading}}" on-response="_didRespond"></iron-ajax>
+        <iron-localstorage name="{{request}}" value="{{response}}" on-iron-localstorage-load-empty="_initializeDefaultResponse"></iron-localstorage>
+    </template>
+    <script>
+        Polymer({
+            is: "ajax-manager",
+            observers: [],
+            behaviors: [],
+            listeners: {},
+            properties: {
+                request:{
+                    type:String,
+                    observer:'update'
+                },
+                response: {
+                    type: Object,
+                    notify: true
+                },
+                loading: {
+                    type: Boolean,
+                    value: false,
+                    notify: true
+                }
+            },
+            _initializeDefaultResponse: function () {
+                this.response = {list:[]};
+            },
+            _didRespond: function (e) {
+                this.loading = false;
+            },
+            update: function () {
+                if (this.request !== undefined && this.request !== "") {
+                    if (JSONResults[this.request] === undefined) {
+                        JSONResults[this.request] = "requesting";
+                        this.loading = true;
+                        this.$.ajax.generateRequest();
+                    }
+                }
+            },
+            ready: function () {
+                Polymer.RenderStatus.afterNextRender(this, function () {
+                    this.update();
+                });
+            }
+        });
+    </script>
+</dom-module>
